@@ -9,23 +9,26 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class RedisonConfig {
+public class RedissonConfig {
 
-    @Autowired
-    private RedisonProperties redisonProperties;
+
+    final RedissonProperties redissonProperties;
+
+    public RedissonConfig(RedissonProperties redissonProperties) {
+        this.redissonProperties = redissonProperties;
+    }
 
     @Bean
-    @ConditionalOnProperty(prefix = "scores-redis" , name = "address")
-    public RedissonClient RedisonConfig(){
+    public RedissonClient RedissonConfig(){
         Config config=new Config();
-        if(redisonProperties.isCluster()){
+        if(redissonProperties.isCluster()){
              config.useClusterServers()
-                     .setPassword(redisonProperties.getPassword());
+                     .setPassword(redissonProperties.getPassword());
 //                     .setNodeAddresses();
         } else{
-            config.useSingleServer().setAddress(redisonProperties.getAddress());
-            if( redisonProperties.getPassword()!=null)
-                config.useSingleServer().setPassword (redisonProperties.getPassword());
+            config.useSingleServer().setAddress(redissonProperties.getAddress());
+            if( redissonProperties.getPassword()!=null)
+                config.useSingleServer().setPassword (redissonProperties.getPassword());
         }
         return Redisson.create(config);
     }
