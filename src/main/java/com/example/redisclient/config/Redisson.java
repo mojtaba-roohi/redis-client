@@ -5,7 +5,7 @@ import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.util.ResourceUtils;
 
 //@Configuration
 public class Redisson {
@@ -13,6 +13,7 @@ public class Redisson {
     @Bean
     public RedissonClient Redisson(RedissonProperty redissonProperty){
         Config config=new Config();
+
         System.out.println("redis-client-connect");
         if(redissonProperty.isCluster()){
              config.useClusterServers()
