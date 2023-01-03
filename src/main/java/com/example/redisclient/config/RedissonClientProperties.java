@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "scores-redis")
 @EnableConfigurationProperties
 @Configuration
-public class RedissonProperties {
+public class RedissonClientProperties {
     private String address;
 
     private String password;

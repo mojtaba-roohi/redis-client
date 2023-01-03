@@ -3,6 +3,7 @@ package com.example.redisclient.config;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,23 +11,24 @@ import org.springframework.context.annotation.Configuration;
 public class RedissonConfig {
 
 
-    final RedissonProperties redissonProperties;
+    final RedissonClientProperties redissonClientProperties;
 
-    public RedissonConfig(RedissonProperties redissonProperties) {
-        this.redissonProperties = redissonProperties;
+    public RedissonConfig(RedissonClientProperties redissonClientProperties) {
+        this.redissonClientProperties = redissonClientProperties;
     }
 
     @Bean
     public RedissonClient RedissonConfig(){
         Config config=new Config();
-        if(redissonProperties.isCluster()){
+        System.out.println("redis-client-connect");
+        if(redissonClientProperties.isCluster()){
              config.useClusterServers()
-                     .setPassword(redissonProperties.getPassword());
+                     .setPassword(redissonClientProperties.getPassword());
 //                     .setNodeAddresses();
         } else{
-            config.useSingleServer().setAddress(redissonProperties.getAddress());
-            if( redissonProperties.getPassword()!=null)
-                config.useSingleServer().setPassword (redissonProperties.getPassword());
+            config.useSingleServer().setAddress(redissonClientProperties.getAddress());
+            if( redissonClientProperties.getPassword()!=null)
+                config.useSingleServer().setPassword (redissonClientProperties.getPassword());
         }
         return Redisson.create(config);
     }
