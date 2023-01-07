@@ -11,6 +11,6 @@ scores:
   rabbitmq:
     host: localhost
     password: guest
-    port: 15672
+    port: 15673
     username: guest
 

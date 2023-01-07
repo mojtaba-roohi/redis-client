@@ -3,6 +3,7 @@ package com.example.redisclient;
 
 import org.rajman.common.scores.service.ScoreService;
 import org.redisson.api.RedissonClient;
+
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class RedisClientApplication {
 //static String SCORE_FILL_SCORE_CACHE_QUEUE_NAME = "score.fill_score_cache";
 
 //    @Autowired
-//   static RabbitTemplate rabbitTemplate;
+   static RabbitTemplate rabbitTemplate;
 //
 //    public RedisClientApplication(RabbitTemplate rabbitTemplate) {
 //        this.rabbitTemplate = rabbitTemplate;
@@ -32,7 +33,7 @@ public class RedisClientApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(RedisClientApplication.class, args);
 //        rabbitTemplate.convertAndSend(SCORE_FILL_SCORE_CACHE_QUEUE_NAME,1002);
-        Object m= scoreService.getScore(100);
+        Object m= scoreService.getScore(1020);
         System.out.println(m);
         try{
             RedissonClient redis = context.getBean(RedissonClient.class);
