@@ -1,7 +1,7 @@
 package com.example.redisclient.model;
 
 
-public class RedissonProperty {
+public class RedissonModel {
 
     private String address;
 

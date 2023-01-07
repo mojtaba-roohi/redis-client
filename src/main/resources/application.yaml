@@ -2,8 +2,15 @@ spring:
   config:
     active:
       profile: default
-scores-redis:
-#  address: redis://127.0.0.1:6379
-  address: redis://192.168.99.100:6379
-  cluster : false
-  prefix : moj
+scores:
+  redis:
+    address: redis://127.0.0.1:6379
+    #  address: redis://192.168.99.100:6379
+    cluster: false
+    prefix: moj
+  rabbitmq:
+    host: localhost
+    password: guest
+    port: 15672
+    username: guest
+
