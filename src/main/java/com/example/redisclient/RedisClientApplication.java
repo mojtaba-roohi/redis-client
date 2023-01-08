@@ -1,10 +1,10 @@
 package com.example.redisclient;
 
 
-import org.rajman.common.scores.service.ScoreService;
+import io.netty.util.Timeout;
+import org.rajman.common.scorelibrary.service.ScoreService;
 import org.redisson.api.RedissonClient;
 
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -14,14 +14,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
 public class RedisClientApplication {
-//static String SCORE_FILL_SCORE_CACHE_QUEUE_NAME = "score.fill_score_cache";
 
-//    @Autowired
-   static RabbitTemplate rabbitTemplate;
-//
-//    public RedisClientApplication(RabbitTemplate rabbitTemplate) {
-//        this.rabbitTemplate = rabbitTemplate;
-//    }
 
 
   static ScoreService scoreService;
@@ -30,18 +23,12 @@ public class RedisClientApplication {
         this.scoreService = scoreService;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         ConfigurableApplicationContext context = SpringApplication.run(RedisClientApplication.class, args);
-//        rabbitTemplate.convertAndSend(SCORE_FILL_SCORE_CACHE_QUEUE_NAME,1002);
-        Object m= scoreService.getScore(1020);
-        System.out.println(m);
-        try{
-            RedissonClient redis = context.getBean(RedissonClient.class);
-            System.out.print("redis keys Count: " + redis.getKeys().count());
-        } catch (NoSuchBeanDefinitionException ex){
-            System.out.println("not connect to redisson ");
-        }
-
+        System.out.println(scoreService.getScore(100));
+        System.out.println(scoreService.getScore(1040));
+        Thread.sleep(30 * 1000);
+        System.out.println(scoreService.getScore(1030));
     }
 
 }
